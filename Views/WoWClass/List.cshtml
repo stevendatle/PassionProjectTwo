@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.ClassPic)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PicExtension)
+           
         </th>
         <th></th>
     </tr>
@@ -39,16 +39,20 @@
                 <div class="_record">
                     @{ 
                         //using server rendering to determine images
-                        string pic = "/Content/Classes/default.png";
-                        string alt = "No profile picture provided";
-                        if (WoWClass.ClassPic)
+                        string pic = "/Content/myPics/" + WoWClass.ClassName + "." + "png"; ;
+                        string alt = "Class Icon of " + WoWClass.ClassName;
+                        if (WoWClass.ClassPic == false)
                         {
-                            pic = "/Content/Classes/" + WoWClass.ClassName + "." + "png";
-                            alt = "Class Icon of " + WoWClass.ClassName;
+                            pic = "/Content/myPics/default.png";
+                            alt = "This class does not have a picture yet.";
                         }
                     }
+                    <div class="imgContainer">
+                        <img src="@pic" alt="@alt" />
+                        </div>
+                    </div>
                 </div>
-            </div>
+            
         </td>
         <td>
             @Html.DisplayFor(modelItem => WoWClass.PicExtension)

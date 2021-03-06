@@ -60,6 +60,7 @@ namespace PassionProjectTwo.Controllers
                 Debug.WriteLine(SelectedClass.ClassName);
                 //  ViewModel.Class = SelectedClass;
                 url = "compdata/getclassesforcomp/" + id;
+                response = client.GetAsync(url).Result;
                 return View(SelectedClass);
             }
             return RedirectToAction("List");
@@ -127,6 +128,8 @@ namespace PassionProjectTwo.Controllers
             HttpContent content = new StringContent(jss.Serialize(ClassInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
+            Debug.WriteLine(response.StatusCode);
+
 
             if (response.IsSuccessStatusCode)
             {

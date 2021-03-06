@@ -162,7 +162,7 @@ namespace PassionProjectTwo.Controllers
                                 string fn = id + "." + extension;
 
                                 //getting direct file path to ~/Content/Class/{id}.{extension}
-                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Classes/"), fn);
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/myPics/"), fn);
 
                                 //saving file
                                 ClassPic.SaveAs(path);

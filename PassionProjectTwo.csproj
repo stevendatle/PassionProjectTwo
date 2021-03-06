@@ -203,6 +203,34 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\deathknight.png" />
+    <Content Include="Content\default.png" />
+    <Content Include="Content\demonhunter.png" />
+    <Content Include="Content\druid.png" />
+    <Content Include="Content\hunter.png" />
+    <Content Include="Content\mage.png" />
+    <Content Include="Content\monk.png" />
+    <Content Include="Content\myPics\deathknight.png" />
+    <Content Include="Content\myPics\default.png" />
+    <Content Include="Content\myPics\demonhunter.png" />
+    <Content Include="Content\myPics\druid.png" />
+    <Content Include="Content\myPics\hunter.png" />
+    <Content Include="Content\myPics\mage.png" />
+    <Content Include="Content\myPics\monk.png" />
+    <Content Include="Content\myPics\paladin.png" />
+    <Content Include="Content\myPics\priest.png" />
+    <Content Include="Content\myPics\rogue.png" />
+    <Content Include="Content\myPics\shaman.png" />
+    <Content Include="Content\myPics\warlock.png" />
+    <Content Include="Content\myPics\warrior.png" />
+    <Content Include="Content\myPics\wowbg.jpg" />
+    <Content Include="Content\paladin.png" />
+    <Content Include="Content\priest.png" />
+    <Content Include="Content\rogue.png" />
+    <Content Include="Content\shaman.png" />
+    <Content Include="Content\warlock.png" />
+    <Content Include="Content\warrior.png" />
+    <Content Include="Content\wowbg.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -262,7 +290,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Classes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
