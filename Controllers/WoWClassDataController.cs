@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Web;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -96,6 +98,9 @@ namespace PassionProjectTwo.Controllers
             }
 
             db.Entry(Class).State = EntityState.Modified;
+            //Picture update handled by UpdateClassPic
+            db.Entry(Class).Property(p => p.ClassPic).IsModified = false;
+            db.Entry(Class).Property(p => p.PicExtension).IsModified = false;
 
             try
             {
@@ -115,13 +120,88 @@ namespace PassionProjectTwo.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        ///<summary>
+        ///Take player picture data, uploads it to server, then updates Class pic
+        /// </summary>
+        /// <param name="id">Class ID</param>
+        /// <returns>Status code 200 if success</returns>
+        /// <example>
+        /// 
+        /// </example>
+        /// 
+
+        [HttpPost]
+        public IHttpActionResult UpdateClassPic(int id)
+        {
+            bool haspic = false;
+            string picextension;
+
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                Debug.WriteLine("Received multipart form data.");
+
+                int numfiles = HttpContext.Current.Request.Files.Count;
+                Debug.WriteLine("Files Received: " + numfiles);
+
+                //check if file has been uploaded
+                if (numfiles == 1 && HttpContext.Current.Request.Files[0] != null)
+                {
+                    var ClassPic = HttpContext.Current.Request.Files[0];
+                    //checking if file is empty
+                    if (ClassPic.ContentLength > 0)
+                    {
+                        var valtypes = new[] { "jpeg", "jpg", "png", "gif" };
+                        var extension = Path.GetExtension(ClassPic.FileName).Substring(1);
+                        //Finding the extension of the file
+                        if (valtypes.Contains(extension))
+                        {
+                            try
+                            {
+                                //file name is the id of the image
+                                string fn = id + "." + extension;
+
+                                //getting direct file path to ~/Content/Class/{id}.{extension}
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Classes/"), fn);
+
+                                //saving file
+                                ClassPic.SaveAs(path);
+
+                                //if successful, set fields
+                                haspic = true;
+                                picextension = extension;
+
+                                //Update fields in the database!
+                                WoWClass SelectedClass = db.Classes.Find(id);
+                                SelectedClass.ClassPic = haspic;
+                                SelectedClass.PicExtension = extension;
+                                db.Entry(SelectedClass).State = EntityState.Modified;
+
+                                db.SaveChanges();
+
+
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine("Class picture was not saved");
+                                Debug.WriteLine("Exception: " + ex);
+                            }
+                        }
+                    }
+                }
+            }
+            return Ok();
+
+        }
+
+
+
+
         /// <summary>
         /// Delete a class from the database
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-
-
         [ResponseType(typeof(void))]
         public IHttpActionResult DeleteClass(int id)
         {

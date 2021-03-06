@@ -162,6 +162,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\CompController.cs" />
+    <Compile Include="Controllers\CompDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\WoWClassController.cs" />
@@ -180,6 +182,14 @@
     <Compile Include="Migrations\202103042137144_thirdmig.cs" />
     <Compile Include="Migrations\202103042137144_thirdmig.Designer.cs">
       <DependentUpon>202103042137144_thirdmig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103061830082_fourthmig.cs" />
+    <Compile Include="Migrations\202103061830082_fourthmig.Designer.cs">
+      <DependentUpon>202103061830082_fourthmig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103061834370_fifthmig.cs" />
+    <Compile Include="Migrations\202103061834370_fifthmig.Designer.cs">
+      <DependentUpon>202103061834370_fifthmig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MyDBContext.cs" />
@@ -243,9 +253,16 @@
     <Content Include="Views\WoWClass\Details.cshtml" />
     <Content Include="Views\WoWClass\Edit.cshtml" />
     <Content Include="Views\WoWClass\DeleteConfirm.cshtml" />
+    <Content Include="Views\Comp\Create.cshtml" />
+    <Content Include="Views\Comp\DeleteConfirm.cshtml" />
+    <Content Include="Views\Comp\Details.cshtml" />
+    <Content Include="Views\Comp\Edit.cshtml" />
+    <Content Include="Views\Comp\List.cshtml" />
+    <Content Include="Views\Comp\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Classes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -285,6 +302,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103042137144_thirdmig.resx">
       <DependentUpon>202103042137144_thirdmig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103061830082_fourthmig.resx">
+      <DependentUpon>202103061830082_fourthmig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103061834370_fifthmig.resx">
+      <DependentUpon>202103061834370_fifthmig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

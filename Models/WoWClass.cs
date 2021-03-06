@@ -21,6 +21,12 @@ namespace PassionProjectTwo.Models
 
         public string PicExtension { get; set; }
 
+        //a class can play for multiple comps
+        [ForeignKey("WoWComp")]
+        public int? CompID { get; set;}
+        public virtual WoWComp WoWComp { get; set; }
+
+
     }
     public class WoWClassDto
     {

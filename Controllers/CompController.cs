@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,15 +9,16 @@ using System.Net.Http.Headers;
 using System.Diagnostics;
 using System.Web.Script.Serialization;
 
-namespace PassionProjectTwo.Controllers
+namespace Passionproject.Controllers
 {
-    public class WoWClassController : Controller
+    public class CompController : Controller
     {
-        //connection to web api
+
+        //using HTTP Client to connect to web api
         private JavaScriptSerializer jss = new JavaScriptSerializer();
         private static readonly HttpClient client;
 
-        static WoWClassController()
+        static CompController()
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
@@ -27,18 +27,20 @@ namespace PassionProjectTwo.Controllers
             client = new HttpClient(handler);
             client.BaseAddress = new Uri("http://localhost:52117/api/");
             client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
+            new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        //get: comp/list
+
+
+        // GET: Comp/List
         public ActionResult List()
         {
-            string url = "wowclassdata/getclasses";
+            string url = "compdata/getcomps";
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
-                IEnumerable<WoWClass> SelectedClasses = response.Content.ReadAsAsync<IEnumerable<WoWClass>>().Result;
-                return View(SelectedClasses);
+                IEnumerable<WoWComp> SelectedComps = response.Content.ReadAsAsync<IEnumerable<WoWComp>>().Result;
+                return View(SelectedComps);
             }
             else
             {
@@ -47,100 +49,88 @@ namespace PassionProjectTwo.Controllers
         }
 
 
-        // GET: Class/Details/5
+        // GET: Comp/Details/5
         public ActionResult Details(int id)
         {
-            string url = "WoWClassData/FindClass/" + id;
+            // ShowComp ViewModel = new ShowComp();
+            string url = "compdata/findcomp/" + id;
+
             HttpResponseMessage response = client.GetAsync(url).Result;
-            //catching status code
+            //Catch the status code
             if (response.IsSuccessStatusCode)
             {
-                //add data
-                WoWClass SelectedClass = response.Content.ReadAsAsync<WoWClass>().Result;
-                Debug.WriteLine(SelectedClass.ClassName);
-                //  ViewModel.Class = SelectedClass;
-                url = "compdata/getclassesforcomp/" + id;
-                return View(SelectedClass);
+                //add data into comp data transfer object
+                WoWComp SelectedComp = response.Content.ReadAsAsync<WoWComp>().Result;
+                Debug.WriteLine(SelectedComp.CompName);
+                //  ViewModel.comp = SelectedComp;
+                url = "teamdata/getclassesforcomp/" + id;
+                return View(SelectedComp);
             }
             return RedirectToAction("List");
         }
 
-        // GET: Class/Create
+        // GET: Comp/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Class/Create
-        [HttpPost]
-        public ActionResult Create(WoWClass ClassInfo)
-        {
-            Debug.WriteLine(ClassInfo.ClassName);
-            string url = "WoWClassData/addClass";
-            Debug.WriteLine(jss.Serialize(ClassInfo));
-            HttpContent content = new StringContent(jss.Serialize(ClassInfo));
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            HttpResponseMessage response = client.PostAsync(url, content).Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-                int Classid = response.Content.ReadAsAsync<int>().Result;
-                return RedirectToAction("Details", new { id = Classid });
-            }
-            else
-            {
-                return RedirectToAction("Error");
-            }
-        }
-
-        // GET: Class/Edit/5
-        public ActionResult Edit(int id)
-        {
-            
-
-            string url = "WoWClassData/FindClass/" + id;
-            HttpResponseMessage response = client.GetAsync(url).Result;
-
-
-
-            if (response.IsSuccessStatusCode)
-            {
-                //Put data into Class
-                WoWClass SelectedClass = response.Content.ReadAsAsync<WoWClass>().Result;
-                return View(SelectedClass);
-            }
-            else
-            {
-                return RedirectToAction("Error");
-            }
-        }
-
-        // POST: Class/Edit/5
+        // POST: Comp/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
-        public ActionResult Edit(int id, WoWClass ClassInfo, HttpPostedFileBase ClassPic)
+        public ActionResult Create(WoWComp CompInfo)
         {
-
-            Debug.WriteLine(ClassInfo.ClassName);
-            string url = "WoWClassdata/updateclass/" + id;
-            Debug.WriteLine(jss.Serialize(ClassInfo));
-            HttpContent content = new StringContent(jss.Serialize(ClassInfo));
+            Debug.WriteLine(CompInfo.CompName);
+            string url = "Compdata/addComp";
+            Debug.WriteLine(jss.Serialize(CompInfo));
+            HttpContent content = new StringContent(jss.Serialize(CompInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
 
             if (response.IsSuccessStatusCode)
             {
-                //Only send picture data if available
-                if (ClassPic != null)
-                {
-                    Debug.WriteLine("Calling Update Image Method");
-                    url = "wowclassdata/updateclasspic/" + id;
+                int Compid = response.Content.ReadAsAsync<int>().Result;
+                return RedirectToAction("Details", new { id = Compid });
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
 
-                    MultipartFormDataContent requestcontent = new MultipartFormDataContent();
-                    HttpContent imagecontent = new StreamContent(ClassPic.InputStream);
-                    requestcontent.Add(imagecontent, "ClassPic", ClassPic.FileName);
-                    response = client.PostAsync(url, requestcontent).Result;
-                }
+        // GET: Comp/Edit/5
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            string url = "compdata/findcomp/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                //Put data into comp DTO
+                WoWComp SelectedComp = response.Content.ReadAsAsync<WoWComp>().Result;
+                return View(SelectedComp);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+
+        // POST: Comp/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public ActionResult Edit(int id, WoWComp CompInfo)
+        {
+            Debug.WriteLine(CompInfo.CompName);
+            string url = "compdata/updatecomp/" + id;
+            Debug.WriteLine(jss.Serialize(CompInfo));
+            HttpContent content = new StringContent(jss.Serialize(CompInfo));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
                 return RedirectToAction("Details", new { id = id });
             }
             else
@@ -149,30 +139,31 @@ namespace PassionProjectTwo.Controllers
             }
         }
 
-        // GET: Class/Delete/5
+        // GET: Comp/Delete/5
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "classdata/findclass/" + id;
+            string url = "compdata/findcomp/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             if (response.IsSuccessStatusCode)
             {
                 //Put data into comp dto
-                WoWClass SelectedClass = response.Content.ReadAsAsync<WoWClass>().Result;
-                return View(SelectedClass);
+                WoWComp SelectedComp = response.Content.ReadAsAsync<WoWComp>().Result;
+                return View(SelectedComp);
             }
             else
             {
                 return RedirectToAction("Error");
             }
+
         }
 
-        // POST: Class/Delete/5
+        // POST: Comp/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
         public ActionResult Delete(int id)
         {
-            string url = "classdata/delete/" + id;
+            string url = "compdata/delete/" + id;
             HttpContent content = new StringContent("");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
 
@@ -185,6 +176,7 @@ namespace PassionProjectTwo.Controllers
                 return RedirectToAction("Error");
             }
         }
+
         public ActionResult Error()
         {
             return View();

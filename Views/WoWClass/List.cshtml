@@ -4,7 +4,7 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<h2>Classes</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -26,24 +26,37 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var WoWClass in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ClassName)
+            @Html.DisplayFor(modelItem => WoWClass.ClassName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ClassSpec)
+            @Html.DisplayFor(modelItem => WoWClass.ClassSpec)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ClassPic)
+            <div class="record">
+                <div class="_record">
+                    @{ 
+                        //using server rendering to determine images
+                        string pic = "/Content/Classes/default.png";
+                        string alt = "No profile picture provided";
+                        if (WoWClass.ClassPic)
+                        {
+                            pic = "/Content/Classes/" + WoWClass.ClassName + "." + "png";
+                            alt = "Class Icon of " + WoWClass.ClassName;
+                        }
+                    }
+                </div>
+            </div>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PicExtension)
+            @Html.DisplayFor(modelItem => WoWClass.PicExtension)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ClassID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ClassID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ClassID })
+            @Html.ActionLink("Edit", "Edit", new { id=WoWClass.ClassID }) |
+            @Html.ActionLink("Details", "Details", new { id=WoWClass.ClassID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=WoWClass.ClassID })
         </td>
     </tr>
 }

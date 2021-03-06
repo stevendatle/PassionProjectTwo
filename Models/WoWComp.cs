@@ -23,9 +23,26 @@ namespace PassionProjectTwo.Models
         public string CompClass3 { get; set; }
 
         //A team can have up to three classes
-        public ICollection<WoWClass> Classes { get; set; }
+        public ICollection<WoWClass> Class { get; set; }
 
 
     }
+    public class WoWCompDto
+    {
+        [Key]
+        public int CompID { get; set; }
 
+        [DisplayName("Comp Name")]
+        public string CompName { get; set; }
+
+        [DisplayName("Comp Class 1")]
+        public string CompClass1 { get; set; }
+
+        [DisplayName("Comp Class 2")]
+        public string CompClass2 { get; set; }
+
+        [DisplayName("Comp Class 3")]
+        public string CompClass3 { get; set; }
+
+    }
 }
