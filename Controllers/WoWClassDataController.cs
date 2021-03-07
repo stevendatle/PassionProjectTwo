@@ -81,8 +81,8 @@ namespace PassionProjectTwo.Controllers
         /// <summary>
         /// Update a class in the database
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">3</param>
+        /// <returns>Updated information on the class </returns>
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateClass(int id, [FromBody] WoWClass Class)
@@ -201,7 +201,7 @@ namespace PassionProjectTwo.Controllers
         /// Delete a class from the database
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>A view of an updated list</returns>
         /// 
         [HttpPost]
         public IHttpActionResult DeleteClass(int id)

@@ -114,7 +114,7 @@ namespace PassionProjectTwo.Controllers
         /// </summary>
         /// <param name="id">Comp ID</param>
         /// <param name="comp">Comp object, received as POST data</param>
-        /// <returns></returns>
+        /// <returns>Updated list on comps in the database</returns>
 
 
         [ResponseType(typeof(void))]
@@ -156,7 +156,7 @@ namespace PassionProjectTwo.Controllers
         /// Add a comp to the database
         /// </summary>
         /// <param name="comp">Comp object</param>
-        /// <returns></returns>
+        /// <returns>Updated list of comps in the database</returns>
         // POST: api/Comps
         [ResponseType(typeof(WoWComp))]
         public IHttpActionResult AddComp([FromBody] WoWComp Comp)
@@ -176,7 +176,7 @@ namespace PassionProjectTwo.Controllers
         /// Delete a comp
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>Updated list of comps in the database</returns>
         // DELETE: api/Comps/5
         [HttpPost]
         public IHttpActionResult DeleteComp(int id)
