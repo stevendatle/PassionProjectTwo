@@ -277,7 +277,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\WoWClass\List.cshtml" />
     <Content Include="Views\WoWClass\Create.cshtml" />
-    <Content Include="Views\WoWClass\Delete.cshtml" />
     <Content Include="Views\WoWClass\Details.cshtml" />
     <Content Include="Views\WoWClass\Edit.cshtml" />
     <Content Include="Views\WoWClass\DeleteConfirm.cshtml" />
@@ -287,6 +286,7 @@
     <Content Include="Views\Comp\Edit.cshtml" />
     <Content Include="Views\Comp\List.cshtml" />
     <Content Include="Views\Comp\Delete.cshtml" />
+    <Content Include="Views\WoWClass\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

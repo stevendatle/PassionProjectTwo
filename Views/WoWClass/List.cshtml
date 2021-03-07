@@ -41,11 +41,7 @@
                         //using server rendering to determine images
                         string pic = "/Content/myPics/" + WoWClass.ClassName + "." + "png"; ;
                         string alt = "Class Icon of " + WoWClass.ClassName;
-                        if (WoWClass.ClassPic == false)
-                        {
-                            pic = "/Content/myPics/default.png";
-                            alt = "This class does not have a picture yet.";
-                        }
+ 
                     }
                     <div class="imgContainer">
                         <img src="@pic" alt="@alt" />
@@ -60,7 +56,7 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=WoWClass.ClassID }) |
             @Html.ActionLink("Details", "Details", new { id=WoWClass.ClassID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=WoWClass.ClassID })
+            @Html.ActionLink("Delete", "DeleteConfirm", new { id=WoWClass.ClassID })
         </td>
     </tr>
 }

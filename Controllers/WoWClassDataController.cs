@@ -202,19 +202,21 @@ namespace PassionProjectTwo.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [ResponseType(typeof(void))]
+        /// 
+        [HttpPost]
         public IHttpActionResult DeleteClass(int id)
         {
-            WoWClass @class = db.Classes.Find(id);
-            if (@class == null)
+            WoWClass myClass = db.Classes.Find(id);
+            Debug.WriteLine(myClass);
+            if (myClass == null)
             {
                 return NotFound();
             }
 
-            db.Classes.Remove(@class);
+            db.Classes.Remove(myClass);
             db.SaveChanges();
 
-            return Ok(@class);
+            return Ok(myClass);
         }
 
         /// <summary>

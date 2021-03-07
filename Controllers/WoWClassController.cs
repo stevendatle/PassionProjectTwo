@@ -152,11 +152,13 @@ namespace PassionProjectTwo.Controllers
             }
         }
 
-        // GET: Class/Delete/5
+        // GET: WoWClass/Delete/5
+        [HttpGet]
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "classdata/findclass/" + id;
+            string url = "WoWClassdata/FindClass/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
+            Debug.WriteLine(response);
 
             if (response.IsSuccessStatusCode)
             {
@@ -170,14 +172,15 @@ namespace PassionProjectTwo.Controllers
             }
         }
 
-        // POST: Class/Delete/5
+        // POST: WoWClass/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
         public ActionResult Delete(int id)
         {
-            string url = "classdata/delete/" + id;
+            string url = "wowclassdata/deleteclass/" + id;
             HttpContent content = new StringContent("");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
+            Debug.WriteLine(response);
 
             if (response.IsSuccessStatusCode)
             {
